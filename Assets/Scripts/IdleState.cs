@@ -5,16 +5,24 @@ using UnityEngine;
 public class IdleState : State
 {
     Material mat;
+    Transform transform;
+    Hunter _hunter;
+
+    public IdleState(Hunter npc)
+    {
+        transform = npc.transform;
+        _hunter = npc;
+        mat = npc.GetComponent<Renderer>().material;
+    }
     public override void OnEnter() 
     { 
-        Debug.Log("Entre a Idle");
+        Debug.Log("Estoy cansado");
         mat.color = Color.green;
     }
 
     public override void OnUpdate()
     {
-        Debug.Log("Estoy en Idle");
-
+        Debug.Log("Recargando energia");
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
             fsm.ChangeState(HunterStates.Patrol);
@@ -23,6 +31,6 @@ public class IdleState : State
 
     public override void OnExit()
     {
-        Debug.Log("Sali de Idle");
+        Debug.Log("Energia a Full");
     }
 }
