@@ -8,6 +8,7 @@ public class IdleState : State
     public override void OnEnter() 
     { 
         Debug.Log("Entre a Idle");
+        mat.color = Color.green;
     }
 
     public override void OnUpdate()
@@ -16,7 +17,7 @@ public class IdleState : State
 
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
-            fsm.ChangeState(HunterStates.Move);
+            fsm.ChangeState(HunterStates.Patrol);
         }
     }
 

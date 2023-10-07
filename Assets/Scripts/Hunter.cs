@@ -11,18 +11,24 @@ public class Hunter : MonoBehaviour
     
     void Start()
     {
+        _currentEnergy = maxEnergy;
         _fsm = new FiniteStateMachine();
+
+        _fsm.AddState(HunterStates.Idle, new IdleState());
+        _fsm.AddState(HunterStates.Patrol, new PatrolState(this));
+        _fsm.AddState(HunterStates.Chase, new ChaseState(this));
     }
 
     
     void Update()
     {
-        
+        _fsm.OnUpdate();
     }
 }
 
 public enum HunterStates
 {
     Idle,
-    Move
+    Patrol,
+    Chase
 }
