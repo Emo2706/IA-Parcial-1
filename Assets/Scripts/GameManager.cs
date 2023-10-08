@@ -12,10 +12,11 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null) instance = this;
-        else Destroy(gameObject);
+        if (instance == null)
+        instance = this;
 
-        //Prohibido FindObjectOfType/FindObjectsOfType/FindObjectOfTag/etc
+        else 
+        Destroy(gameObject);
     }
 
     public void ShiftPositionOnBounds(Transform t)
