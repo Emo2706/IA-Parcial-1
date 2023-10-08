@@ -70,7 +70,6 @@ public class SteeringAgents : MonoBehaviour
         return -Pursuit(agent);
     }
 
-    #region Flocking
 
     protected Vector3 Cohesion(List<SteeringAgents> agents)
     {
@@ -88,12 +87,10 @@ public class SteeringAgents : MonoBehaviour
         }
         if (count == 0) return Vector3.zero;
 
-        //Promedio = Suma / Cant.
         desired /= count;
         return Seek(desired);
     }
-
-
+    
 
     protected Vector3 Separation(List<SteeringAgents> agents)
     {
@@ -115,12 +112,12 @@ public class SteeringAgents : MonoBehaviour
         //Promedio de posiciones de agentes de locales.
         Vector3 desired = Vector3.zero;
         int count = 0;
-        foreach (var item in agents)
+        foreach (var agent in agents)
         {
-            if(item == this) continue;
-            if (Vector3.Distance(transform.position, item.transform.position) > _viewRadius) continue;
+            if(agent == this) continue;
+            if (Vector3.Distance(transform.position, agent.transform.position) > _viewRadius) continue;
 
-            desired += item._velocity;
+            desired += agent._velocity;
             count++;
         }
         if (count == 0) return Vector3.zero;
@@ -130,8 +127,6 @@ public class SteeringAgents : MonoBehaviour
         return CalculateSteering(desired.normalized * _maxSpeed);
     }
 
-
-    #endregion
 
 
     protected void AddForce(Vector3 force)

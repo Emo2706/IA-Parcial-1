@@ -8,7 +8,7 @@ public class Hunter : MonoBehaviour
     [SerializeField] protected float speed;
     [SerializeField] protected float maxEnergy;
     float _currentEnergy;
-    float energyLoseRate;
+    float energyRate;
     
     void Start()
     {
@@ -24,18 +24,26 @@ public class Hunter : MonoBehaviour
         _fsm.OnUpdate();
     }
 
-    void OnIdle()
+    void OnIdle(float _energyRecover)
     {
+        energyRate += Time.deltaTime;
 
+        if(energyRate >= 1 && _currentEnergy < maxEnergy)
+        {
+            _currentEnergy += _energyRecover;
+            energyRate = 0;
+        }
+        else
+        return;
     }
     void OnPatrol(float _energyLose)
     {
-        energyLoseRate += Time.deltaTime;
+        energyRate += Time.deltaTime;
 
-        if(energyLoseRate >= 1 && _currentEnergy > 0)
+        if(energyRate >= 1 && _currentEnergy > 0)
         {
             _currentEnergy -= _energyLose;
-            energyLoseRate = 0;
+            energyRate = 0;
         }
         else
         return;
@@ -43,12 +51,12 @@ public class Hunter : MonoBehaviour
 
     void OnChase(float _energyLose)
     {
-        energyLoseRate += Time.deltaTime;
+        energyRate += Time.deltaTime;
 
-        if(energyLoseRate >= 1 && _currentEnergy > 0)
+        if(energyRate >= 1 && _currentEnergy > 0)
         {
             _currentEnergy -= _energyLose;
-            energyLoseRate = 0;
+            energyRate = 0;
         }
         else
         return;
