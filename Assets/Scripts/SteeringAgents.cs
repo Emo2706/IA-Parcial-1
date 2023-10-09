@@ -7,7 +7,7 @@ public class SteeringAgents : MonoBehaviour
     protected Vector3 _velocity;
     [SerializeField] protected float _maxSpeed = 5;
     [SerializeField] protected float _maxForce = 5;
-
+    [SerializeField] protected float _separationRadius = 2;
     [SerializeField] protected float _viewRadius = 5;
     [SerializeField] protected LayerMask _obstacleMask = 1 << 6;
 
@@ -90,21 +90,26 @@ public class SteeringAgents : MonoBehaviour
         desired /= count;
         return Seek(desired);
     }
-    
 
-    protected Vector3 Separation(List<SteeringAgents> agents)
+
+    protected Vector3 Separation(List<SteeringAgents> agents, float sepRadius)
     {
         Vector3 desired = Vector3.zero;
         foreach (var item in agents)
         {
             if (item == this) continue;
             Vector3 dist = item.transform.position - transform.position;
-            if (dist.sqrMagnitude > _viewRadius * _viewRadius) continue;
+            if (dist.sqrMagnitude > sepRadius * sepRadius) continue;
             desired += dist;
         }
         if (desired == Vector3.zero) return desired;
         desired *= -1;
         return CalculateSteering(desired.normalized * _maxSpeed);
+    }
+
+    protected Vector3 Separation(List<SteeringAgents> agents)
+    {
+        return Separation(agents, _separationRadius);
     }
 
     protected Vector3 Alignment(List<SteeringAgents> agents)

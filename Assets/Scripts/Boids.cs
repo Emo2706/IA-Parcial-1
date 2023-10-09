@@ -35,7 +35,9 @@ public class Boids : SteeringAgents
         //AddForce(Alignment(gm.allBoids) * alignmentWeight);
 
         //Combined Behaviors
-        AddForce(Cohesion(gm.allBoids) * cohesionWeight + Separation(gm.allBoids) * separationWeight + Alignment(gm.allBoids) * alignmentWeight);
+        AddForce(Cohesion(gm.allBoids) * cohesionWeight + 
+                Separation(gm.allBoids) * separationWeight + 
+                Alignment(gm.allBoids) * alignmentWeight);
     }
 
 
