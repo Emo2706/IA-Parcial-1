@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hunter : MonoBehaviour
+public class Hunter : SteeringAgents
 {
     FiniteStateMachine _fsm;
-    [SerializeField] protected float speed;
+    [SerializeField] SteeringAgents _target;
+    //array waypoints;
+    [SerializeField] protected float killDist;
     [SerializeField] protected float maxEnergy;
     float _currentEnergy;
     float energyRate;
@@ -22,9 +24,22 @@ public class Hunter : MonoBehaviour
     void Update()
     {
         _fsm.OnUpdate();
+        KillFlockers();
     }
 
-    void OnIdle(float _energyRecover)
+    void KillFlockers()
+    {
+        if(Vector3.Distance(_target.transform.position, transform.position) <= killDist)
+        {
+            _target.RestartPosition();
+            _currentEnergy = 0;
+        }
+            
+        
+    }
+    //Preguntar donde irian mejor estos behaviours
+    //Y si conviene poner dentro los Steering behaviours
+    void IdleBehaviour(float _energyRecover)
     {
         energyRate += Time.deltaTime;
 
@@ -36,7 +51,7 @@ public class Hunter : MonoBehaviour
         else
         return;
     }
-    void OnPatrol(float _energyLose)
+    void PatrolBehaviour(float _energyLose)
     {
         energyRate += Time.deltaTime;
 
@@ -49,7 +64,7 @@ public class Hunter : MonoBehaviour
         return;
     }
 
-    void OnChase(float _energyLose)
+    void ChaseBehaviour(float _energyLose)
     {
         energyRate += Time.deltaTime;
 
@@ -60,6 +75,12 @@ public class Hunter : MonoBehaviour
         }
         else
         return;
+    }
+
+    protected override void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, killDist);
     }
 }
 

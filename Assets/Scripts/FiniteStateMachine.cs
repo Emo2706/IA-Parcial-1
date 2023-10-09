@@ -28,6 +28,8 @@ public class FiniteStateMachine
 
     public void OnUpdate()
     {
+        //_currentState? es lo mismo que poner
+        //if(_currentState != null)
         _currentState?.OnUpdate();
     }
 }

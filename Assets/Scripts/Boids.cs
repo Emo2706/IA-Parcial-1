@@ -43,6 +43,8 @@ public class Boids : SteeringAgents
 
     protected override void OnDrawGizmos()
     {
+        Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, _viewRadius);
+        Gizmos.DrawWireSphere(transform.position, _separationRadius);
     }
 }

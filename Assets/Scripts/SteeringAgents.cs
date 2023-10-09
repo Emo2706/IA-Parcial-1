@@ -91,7 +91,8 @@ public class SteeringAgents : MonoBehaviour
         return Seek(desired);
     }
 
-
+    //preguntar si la sobrecarga se puede hacer en Boids
+    //para tener ahi la variable q se pasa de parametro
     protected Vector3 Separation(List<SteeringAgents> agents, float sepRadius)
     {
         Vector3 desired = Vector3.zero;
@@ -169,9 +170,9 @@ public class SteeringAgents : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _viewRadius);
-        Vector3 originA = transform.position + transform.up * 0.5f;
-        Vector3 originB = transform.position - transform.up * 0.5f;
-
+        Vector3 originA = transform.position + transform.up * 0.2f;
+        Vector3 originB = transform.position - transform.up * 0.2f;
+        
         Gizmos.DrawLine(originA, originA + transform.right * _viewRadius);
         Gizmos.DrawLine(originB, originB + transform.right * _viewRadius);
 

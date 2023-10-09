@@ -17,15 +17,21 @@ public class ChaseState : State
     public override void OnEnter() 
     { 
         mat.color = Color.red;
+        Debug.Log("Boid detectado");
     }
 
     public override void OnUpdate()
     {
-        
+        Debug.Log("Estoy cazando");
+        /*_hunter.ChaseBehaviour(energiaPerdidaPorSegundo);
+        if(_hunter._currentEnergy > 0)
+        _hunter.Pursuit(_target);
+        else
+        fsm.ChangeState(HunterStates.Idle);*/
     }
 
     public override void OnExit()
     {
-        
+        Debug.Log("Dejamos de cazar");
     }
 }
