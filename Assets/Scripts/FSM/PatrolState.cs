@@ -24,17 +24,17 @@ public class PatrolState : State
     public override void OnUpdate()
     {
         Debug.Log("Patrullando");
-        /*_hunter.PatrolBehaviour(energiaPerdidaPorSegundo);
+        
         if(_hunter._currentEnergy > 0)
         {
             if(Vector3.Distance(transform.position, _hunter._target.transform.position) > _hunter._viewRadius)
-            _hunter.Seek(_hunter.waypoints);
+            _hunter.PatrolBehaviour();
             else
             fsm.ChangeState(HunterStates.Chase);
         }
         
         else
-        fsm.ChangeState(HunterStates.Idle);*/
+        fsm.ChangeState(HunterStates.Idle);
     }
 
     public override void OnExit()

@@ -23,11 +23,11 @@ public class ChaseState : State
     public override void OnUpdate()
     {
         Debug.Log("Estoy cazando");
-        /*_hunter.ChaseBehaviour(energiaPerdidaPorSegundo);
+        
         if(_hunter._currentEnergy > 0)
-        _hunter.Pursuit(_target);
+        _hunter.ChaseBehaviour();
         else
-        fsm.ChangeState(HunterStates.Idle);*/
+        fsm.ChangeState(HunterStates.Idle);
     }
 
     public override void OnExit()

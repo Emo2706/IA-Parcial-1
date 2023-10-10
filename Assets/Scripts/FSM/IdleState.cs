@@ -23,15 +23,15 @@ public class IdleState : State
     public override void OnUpdate()
     {
         Debug.Log("Recargando energia");
-        /*_hunter.AddForce(Vector3.zero);
-        _hunter.IdleBehaviour(energiaRecuperadaPorSegundo)
+        
+        _hunter.IdleBehaviour();
         if (_hunter._currentEnergy >= _hunter.maxEnergy)
         {
-            if(Vector3.Distance(transform.position, _hunter._target.transform.position) > _hunter._viewRadius)
+            //if(Vector3.Distance(transform.position, _hunter._target.transform.position) > _hunter._viewRadius)
             fsm.ChangeState(HunterStates.Patrol);
-            else
-            fsm.ChangeState(HunterStates.Chase);
-        }*/
+            //else
+            //fsm.ChangeState(HunterStates.Chase);
+        }
         
     }
 

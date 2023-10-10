@@ -8,7 +8,8 @@ public class SteeringAgents : MonoBehaviour
     [SerializeField] protected float _maxSpeed = 5;
     [SerializeField] protected float _maxForce = 5;
     [SerializeField] protected float _separationRadius = 2;
-    [SerializeField] protected float _viewRadius = 5;
+    //[SerializeField] protected float _viewRadius = 5;
+    public float _viewRadius = 5;
     [SerializeField] protected LayerMask _obstacleMask = 1 << 6;
 
     protected Vector3 Seek(Vector3 targetPos, float speed)
