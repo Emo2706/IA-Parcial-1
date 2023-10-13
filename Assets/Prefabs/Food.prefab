@@ -12,13 +12,14 @@ GameObject:
   - component: {fileID: 1179335732588393223}
   - component: {fileID: 4753502630513345027}
   - component: {fileID: 7799670303379209050}
+  - component: {fileID: 2946482153486960001}
   m_Layer: 0
   m_Name: Food
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3380961591985848577
 Transform:
   m_ObjectHideFlags: 0
@@ -97,3 +98,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2946482153486960001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199128248713962438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c73980434583e6418af36c0ecc9db95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

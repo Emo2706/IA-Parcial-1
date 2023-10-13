@@ -22,12 +22,14 @@ public class Hunter : SteeringAgents
     int _currentWaypoint = 0;
     void Start()
     {
-        _currentEnergy = maxEnergy;
+        //_currentEnergy = maxEnergy;
         _fsm = new FiniteStateMachine();
 
         _fsm.AddState(HunterStates.Idle, new IdleState(this));
         _fsm.AddState(HunterStates.Patrol, new PatrolState(this));
         _fsm.AddState(HunterStates.Chase, new ChaseState(this));
+
+        _fsm.ChangeState(HunterStates.Idle);
     } 
     void Update()
     {
@@ -59,25 +61,25 @@ public class Hunter : SteeringAgents
     }
     public void IdleBehaviour()
     {
-        HunterEnergy(energyRecover);
+        RegainEnergy(energyRecover);
         AddForce(Vector3.zero);
     }
     public void PatrolBehaviour()
     {
-        HunterEnergy(energyLosePatrol);
+        LoseEnergy(energyLosePatrol);
         Move();
-        Seek(Waypoints());
+        AddForce(Seek(Waypoints()));
     }
 
     public void ChaseBehaviour()
     {
-        HunterEnergy(energyLoseChase);
+        LoseEnergy(energyLoseChase);
         Move();
-        Pursuit(target);
+        AddForce(Pursuit(target));
         KillFlockers();
     }
 
-    void HunterEnergy(float energyManage)
+    void LoseEnergy(float energyManage)
     {
         counter += Time.deltaTime;
 
@@ -89,6 +91,12 @@ public class Hunter : SteeringAgents
             if(_currentEnergy < 0)
             _currentEnergy = 0;
         }
+        
+    }
+    void RegainEnergy(float energyManage)
+    {
+        counter += Time.deltaTime;
+        
         if(counter >= energyRate && _currentEnergy < maxEnergy)
         {
             _currentEnergy += energyManage;

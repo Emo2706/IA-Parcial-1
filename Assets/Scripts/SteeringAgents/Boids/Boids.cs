@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Boids : SteeringAgents
@@ -30,14 +31,14 @@ public class Boids : SteeringAgents
 
     void AllBehavoiurs()
     {
-        //Move();
+        Move();
         if(Vector3.Distance(transform.position, hunter.transform.position) > viewRadius)
         {
-            if(Vector3.Distance(transform.position, gm.food.transform.position) <= viewRadius)
+            if(Vector3.Distance(transform.position, gm.foodPrefab.transform.position) <= viewRadius)
             {
                 Debug.Log("Detecto comida");
-                Arrive(gm.food.transform.position);
-                EatFood();
+                AddForce(Arrive(gm.foodPrefab.transform.position));
+                //EatFood();
             }
             else
             {
@@ -48,7 +49,7 @@ public class Boids : SteeringAgents
         }
         else
         {
-            Evade(hunter);
+            AddForce(Evade(hunter));
             Debug.Log("Peligro hay un hunter");
         }
         
@@ -66,16 +67,15 @@ public class Boids : SteeringAgents
                 Alignment(gm.allBoids) * alignmentWeight);
     }
 
-    void EatFood()
+    /*void EatFood()
     {
         if(Vector3.Distance(transform.position, gm.food.transform.position) <= eatDist)
         {
-            //gm.food.SetActive(false);
             Debug.Log("Morfo");
             Destroy(gm.food);
         }
         
-    }
+    }*/
     protected override void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;

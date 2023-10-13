@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public float width = 30;
     public float height = 20;
-    public GameObject food;
+    public Food foodPrefab;
     [SerializeField] float spawnTimer;
     float counter;
 
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         if(counter >= timer)
         {
             Vector3 spawn = new Vector3(Random.Range(-w,w), Random.Range(-h,h),0);
-            Instantiate(food, spawn, Quaternion.identity);
+            Instantiate(foodPrefab, spawn, Quaternion.identity);
             counter = 0;
         }
     }
