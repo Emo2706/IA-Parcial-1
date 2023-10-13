@@ -27,7 +27,7 @@ public class PatrolState : State
         
         if(_hunter._currentEnergy > 0)
         {
-            if(Vector3.Distance(transform.position, _hunter._target.transform.position) > _hunter._viewRadius)
+            if(Vector3.Distance(transform.position, _hunter.target.transform.position) > _hunter.viewRadius)
             _hunter.PatrolBehaviour();
             else
             fsm.ChangeState(HunterStates.Chase);

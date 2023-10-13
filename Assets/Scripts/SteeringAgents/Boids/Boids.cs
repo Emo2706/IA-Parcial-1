@@ -9,7 +9,8 @@ public class Boids : SteeringAgents
     [Range(0f, 1.5f)] public float cohesionWeight = 1;
     [Range(0f, 1.5f)] public float separationWeight = 1;
     [Range(0f, 1.5f)] public float alignmentWeight = 1;
-
+    [SerializeField] float eatDist;
+    [SerializeField] SteeringAgents hunter;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,9 +24,34 @@ public class Boids : SteeringAgents
     // Update is called once per frame
     void Update()
     {
-        Flocking();
-        Move();
+        AllBehavoiurs();
         gm.ShiftPositionOnBounds(transform);
+    }
+
+    void AllBehavoiurs()
+    {
+        //Move();
+        if(Vector3.Distance(transform.position, hunter.transform.position) > viewRadius)
+        {
+            if(Vector3.Distance(transform.position, gm.food.transform.position) <= viewRadius)
+            {
+                Debug.Log("Detecto comida");
+                Arrive(gm.food.transform.position);
+                EatFood();
+            }
+            else
+            {
+                Flocking();
+                Debug.Log("Flockeando");
+            }
+
+        }
+        else
+        {
+            Evade(hunter);
+            Debug.Log("Peligro hay un hunter");
+        }
+        
     }
 
     void Flocking()
@@ -40,11 +66,21 @@ public class Boids : SteeringAgents
                 Alignment(gm.allBoids) * alignmentWeight);
     }
 
-
+    void EatFood()
+    {
+        if(Vector3.Distance(transform.position, gm.food.transform.position) <= eatDist)
+        {
+            //gm.food.SetActive(false);
+            Debug.Log("Morfo");
+            Destroy(gm.food);
+        }
+        
+    }
     protected override void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, _viewRadius);
+        Gizmos.DrawWireSphere(transform.position, viewRadius);
         Gizmos.DrawWireSphere(transform.position, _separationRadius);
+        Gizmos.DrawWireSphere(transform.position, eatDist);
     }
 }

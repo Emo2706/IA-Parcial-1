@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public float width = 30;
     public float height = 20;
+    public GameObject food;
+    [SerializeField] float spawnTimer;
+    float counter;
 
     public List<SteeringAgents> allBoids = new List<SteeringAgents>();
 
@@ -18,7 +21,23 @@ public class GameManager : MonoBehaviour
         else 
         Destroy(gameObject);
     }
+    void Update()
+    {
+        FoodSpawner(spawnTimer);
+    }
 
+    void FoodSpawner(float timer)
+    {
+        counter += Time.deltaTime;
+        float w = width / 2;
+        float h = height / 2;
+        if(counter >= timer)
+        {
+            Vector3 spawn = new Vector3(Random.Range(-w,w), Random.Range(-h,h),0);
+            Instantiate(food, spawn, Quaternion.identity);
+            counter = 0;
+        }
+    }
     public void ShiftPositionOnBounds(Transform t)
     {
         Vector3 pos = t.position;

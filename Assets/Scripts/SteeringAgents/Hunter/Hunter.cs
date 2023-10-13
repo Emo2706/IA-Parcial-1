@@ -7,7 +7,7 @@ public class Hunter : SteeringAgents
     FiniteStateMachine _fsm;
     //[SerializeField] SteeringAgents _target;
     //array waypoints;
-    public SteeringAgents _target;
+    public SteeringAgents target;
     [SerializeField] protected float killDist;
 
     [SerializeField] protected float energyLosePatrol;
@@ -18,6 +18,8 @@ public class Hunter : SteeringAgents
     public float _currentEnergy;
     [SerializeField] protected float energyRate;
     float counter;
+    public Transform[] waypoints;
+    int _currentWaypoint = 0;
     void Start()
     {
         _currentEnergy = maxEnergy;
@@ -34,13 +36,27 @@ public class Hunter : SteeringAgents
 
     void KillFlockers()
     {
-        if(Vector3.Distance(_target.transform.position, transform.position) <= killDist)
+        if(Vector3.Distance(target.transform.position, transform.position) <= killDist)
         {
-            _target.RestartPosition();
+            target.RestartPosition();
             _currentEnergy = 0;
         }           
     }
 
+    Vector3 Waypoints()
+    {
+        if (waypoints.Length == 0)
+        {
+            return default;
+        }
+
+        Transform targetWaypoint = waypoints[_currentWaypoint];
+        if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f)
+        {
+            _currentWaypoint = (_currentWaypoint + 1) % waypoints.Length;
+        }
+        return targetWaypoint.position;
+    }
     public void IdleBehaviour()
     {
         HunterEnergy(energyRecover);
@@ -50,14 +66,14 @@ public class Hunter : SteeringAgents
     {
         HunterEnergy(energyLosePatrol);
         Move();
-        //Seek(waypointsArray);
+        Seek(Waypoints());
     }
 
     public void ChaseBehaviour()
     {
         HunterEnergy(energyLoseChase);
         Move();
-        Pursuit(_target);
+        Pursuit(target);
         KillFlockers();
     }
 

@@ -9,8 +9,8 @@ public class SteeringAgents : MonoBehaviour
     [SerializeField] protected float _maxForce = 5;
     [SerializeField] protected float _separationRadius = 2;
     //[SerializeField] protected float _viewRadius = 5;
-    public float _viewRadius = 5;
-    [SerializeField] protected LayerMask _obstacleMask = 1 << 6;
+    public float viewRadius = 5;
+    protected LayerMask _obstacleMask = 1 << 6;
 
     protected Vector3 Seek(Vector3 targetPos, float speed)
     {
@@ -37,20 +37,20 @@ public class SteeringAgents : MonoBehaviour
     protected Vector3 Arrive(Vector3 targetPos)
     {
         float distance = Vector3.Distance(transform.position, targetPos);
-        if (distance > _viewRadius) return Seek(targetPos);
+        if (distance > viewRadius) return Seek(targetPos);
 
-        return Seek(targetPos, _maxSpeed * (distance / _viewRadius));
+        return Seek(targetPos, _maxSpeed * (distance / viewRadius));
     }
 
     protected Vector3 ObstacleAvoidance()
     {
-        if (Physics.Raycast(transform.position + transform.up * 0.5f, transform.right, _viewRadius, _obstacleMask))
+        if (Physics.Raycast(transform.position + transform.up * 0.5f, transform.right, viewRadius, _obstacleMask))
         {
             Vector3 desired = -transform.up * _maxSpeed;
 
             return CalculateSteering(desired);
         }
-        else if (Physics.Raycast(transform.position - transform.up * 0.5f, transform.right, _viewRadius, _obstacleMask))
+        else if (Physics.Raycast(transform.position - transform.up * 0.5f, transform.right, viewRadius, _obstacleMask))
         {
             Vector3 desired = transform.up * _maxSpeed;
 
@@ -80,7 +80,7 @@ public class SteeringAgents : MonoBehaviour
         foreach (var item in agents)
         {
             if (item == this) continue;
-            if (Vector3.Distance(transform.position, item.transform.position) > _viewRadius)
+            if (Vector3.Distance(transform.position, item.transform.position) > viewRadius)
                 continue;
 
             desired += item.transform.position;
@@ -122,7 +122,7 @@ public class SteeringAgents : MonoBehaviour
         foreach (var agent in agents)
         {
             if(agent == this) continue;
-            if (Vector3.Distance(transform.position, agent.transform.position) > _viewRadius) continue;
+            if (Vector3.Distance(transform.position, agent.transform.position) > viewRadius) continue;
 
             desired += agent._velocity;
             count++;
@@ -170,12 +170,12 @@ public class SteeringAgents : MonoBehaviour
     protected virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _viewRadius);
+        Gizmos.DrawWireSphere(transform.position, viewRadius);
         Vector3 originA = transform.position + transform.up * 0.2f;
         Vector3 originB = transform.position - transform.up * 0.2f;
         
-        Gizmos.DrawLine(originA, originA + transform.right * _viewRadius);
-        Gizmos.DrawLine(originB, originB + transform.right * _viewRadius);
+        Gizmos.DrawLine(originA, originA + transform.right * viewRadius);
+        Gizmos.DrawLine(originB, originB + transform.right * viewRadius);
 
     }
 }
