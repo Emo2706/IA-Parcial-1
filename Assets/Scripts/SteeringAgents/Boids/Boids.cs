@@ -38,6 +38,10 @@ public class Boids : SteeringAgents
             {
                 Debug.Log("Detecto comida");
                 AddForce(Arrive(gm.foodPrefab.transform.position));
+                if(Vector3.Distance(transform.position, gm.foodPrefab.transform.position) <= eatDist)
+                {
+                    gm.ChangeFoodPosition();
+                }
                 //EatFood();
             }
             else

@@ -24,8 +24,14 @@ public class ChaseState : State
     {
         Debug.Log("Estoy cazando");
         
-        if(_hunter._currentEnergy > 0)
-        _hunter.ChaseBehaviour();
+        if(_hunter._currentEnergy > 0 )
+        {
+            if(Vector3.Distance(_hunter.actualTarget.transform.position, transform.position) <= _hunter.viewRadius)
+            _hunter.ChaseBehaviour();
+            else
+            fsm.ChangeState(HunterStates.Patrol);
+        }
+        
         else
         fsm.ChangeState(HunterStates.Idle);
     }

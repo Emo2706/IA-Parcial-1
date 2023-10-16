@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     public float width = 30;
     public float height = 20;
     public Food foodPrefab;
-    [SerializeField] float spawnTimer;
-    float counter;
+    //[SerializeField] float spawnTimer;
+    //float counter;
 
     public List<SteeringAgents> allBoids = new List<SteeringAgents>();
 
@@ -20,24 +20,23 @@ public class GameManager : MonoBehaviour
 
         else 
         Destroy(gameObject);
+        ChangeFoodPosition();
     }
     void Update()
     {
-        FoodSpawner(spawnTimer);
+        
     }
 
-    void FoodSpawner(float timer)
+    public void ChangeFoodPosition()
     {
-        counter += Time.deltaTime;
         float w = width / 2;
         float h = height / 2;
-        if(counter >= timer)
-        {
-            Vector3 spawn = new Vector3(Random.Range(-w,w), Random.Range(-h,h),0);
-            Instantiate(foodPrefab, spawn, Quaternion.identity);
-            counter = 0;
-        }
+
+        Vector3 spawn = new Vector3(Random.Range(-w,w), Random.Range(-h,h),0);
+        foodPrefab.gameObject.transform.position = spawn;
+        
     }
+
     public void ShiftPositionOnBounds(Transform t)
     {
         Vector3 pos = t.position;

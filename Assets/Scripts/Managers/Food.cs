@@ -10,7 +10,8 @@ public class Food : MonoBehaviour
         {
             if(other.GetComponent<Boids>())
             {
-                Destroy(this);
+                //Destroy(this);
+                Debug.Log("me ttocaron");
             }
             
         }

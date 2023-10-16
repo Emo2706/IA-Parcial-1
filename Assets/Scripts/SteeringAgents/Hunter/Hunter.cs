@@ -7,7 +7,7 @@ public class Hunter : SteeringAgents
     FiniteStateMachine _fsm;
     //[SerializeField] SteeringAgents _target;
     //array waypoints;
-    public SteeringAgents target;
+    public SteeringAgents actualTarget;
     [SerializeField] protected float killDist;
 
     [SerializeField] protected float energyLosePatrol;
@@ -20,8 +20,10 @@ public class Hunter : SteeringAgents
     float counter;
     public Transform[] waypoints;
     int _currentWaypoint = 0;
+    GameManager gm;
     void Start()
     {
+        gm = GameManager.instance;
         //_currentEnergy = maxEnergy;
         _fsm = new FiniteStateMachine();
 
@@ -34,13 +36,26 @@ public class Hunter : SteeringAgents
     void Update()
     {
         _fsm.OnUpdate();
+        CheckCloserBoid(gm.allBoids);
+    }
+
+    void CheckCloserBoid(List<SteeringAgents> agents)
+    {
+        foreach(var boid in agents)
+        {
+            if(Vector3.Distance(actualTarget.transform.position, transform.position) > 
+               Vector3.Distance(boid.transform.position, transform.position))
+               {
+                    actualTarget = boid;
+               }
+        }
     }
 
     void KillFlockers()
     {
-        if(Vector3.Distance(target.transform.position, transform.position) <= killDist)
+        if(Vector3.Distance(actualTarget.transform.position, transform.position) <= killDist)
         {
-            target.RestartPosition();
+            actualTarget.RestartPosition();
             _currentEnergy = 0;
         }           
     }
@@ -74,8 +89,11 @@ public class Hunter : SteeringAgents
     public void ChaseBehaviour()
     {
         LoseEnergy(energyLoseChase);
+
         Move();
-        AddForce(Pursuit(target));
+
+        AddForce(Pursuit(actualTarget));
+ 
         KillFlockers();
     }
 
