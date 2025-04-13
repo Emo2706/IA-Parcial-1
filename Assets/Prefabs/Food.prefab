@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1179335732588393223}
   - component: {fileID: 4753502630513345027}
   - component: {fileID: 7799670303379209050}
+  - component: {fileID: 2946482153486960001}
   m_Layer: 0
   m_Name: Food
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1199128248713962438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9727347, y: 1.2122823, z: 0.029341996}
+  m_LocalPosition: {x: 6.8674126, y: -0.94128513, z: 0}
   m_LocalScale: {x: 0.32825, y: 0.32825, z: 0.32825}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -97,3 +98,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2946482153486960001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199128248713962438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c73980434583e6418af36c0ecc9db95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

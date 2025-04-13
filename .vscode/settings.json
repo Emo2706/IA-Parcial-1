@@ -52,5 +52,6 @@
         "temp/":true,
         "Temp/":true
     },
-    "dotnet.defaultSolution": "IA-Parcial-1.sln"
+    "dotnet.defaultSolution": "IA-Parcial-1.sln",
+    "dotnet.preferCSharpExtension": true
 }
